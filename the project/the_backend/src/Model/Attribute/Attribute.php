@@ -10,7 +10,8 @@ class Attribute extends connectDB {
         $getProductSQL = "
             select 
                 a.id as id,
-                a.name
+                a.name,
+                a.type
             from attributes a 
             where a.product_id = :id
         ";

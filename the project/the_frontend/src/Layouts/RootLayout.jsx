@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
-import { CategoryContext } from '../CategoryContext';
+import { CategoryContext } from '../helpers/CategoryContext';
 
 class RootLayout extends Component {
   constructor(props) {

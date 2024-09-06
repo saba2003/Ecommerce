@@ -20,6 +20,9 @@ class AttributeType extends ObjectType
                     'name' => [
                         'type' => Type::nonNull(Type::string()),
                     ],
+                    'type' => [
+                        'type' => Type::nonNull(Type::string()),
+                    ],
                     'attribute_items' =>[
                         'type' => Type::listOf(new AttributeItemsType()),
                         'resolve'=> function ($attribute, $args): array {

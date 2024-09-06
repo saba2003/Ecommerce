@@ -9,7 +9,7 @@ import { Component } from 'react';
 
 import RootLayout from './Layouts/RootLayout';
 import HomePage from './pages/HomePage';
-import ProductPage from './pages/ProductPage';
+import ProductPage from './pages/Product/ProductPage';
 import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter(

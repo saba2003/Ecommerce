@@ -4,7 +4,7 @@ import {
     GET_TECH_PRODUCTS, 
     GET_CLOTHES_PRODUCTS 
 } from "../graphql/queries";
-import { CategoryContext } from '../CategoryContext'; // Import the context
+import { CategoryContext } from '../helpers/CategoryContext'; // Import the context
 import { Link } from "react-router-dom";
 
 class ProductList extends Component {

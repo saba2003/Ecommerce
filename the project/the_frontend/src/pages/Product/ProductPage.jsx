@@ -1,8 +1,10 @@
 import { 
   GET_PRODUCT
-} from "../graphql/queries";
+} from "../../graphql/queries";
 import { Component } from "react";
-import withRouter from "../components/withRouter";
+import withRouter from "../../helpers/withRouter";
+import Attribute from "./Attribute";
+import Gallery from "./Gallery"
 
 class ProductPage extends Component {
   constructor(props) {
@@ -41,17 +43,40 @@ class ProductPage extends Component {
 
   async componentDidMount() {
     const product_id = this.props.params.id;
-    console.log('Product ID:', product_id);
     this.fetchProduct(product_id)
   }
 
   render () {
+    const loading = this.state.loading;
+    const product = this.state.product[0]
+
+    if (loading) {
+      return <div>Loading product...</div>; // Display loading state
+    }
+
+    if (!product || product.length === 0) { // Check if product is still undefined or empty
+      return <div>No product available</div>;
+    }
+    
     return (
       <div className="product">
-        {
-          <div key={this.product.id}>
-          </div>
-        }
+        
+        <div key={product.id}>
+        <h1>{product.name}</h1>
+          <p>{product.description}</p>
+          <p>
+            <strong>Brand: </strong>{product.brand}
+          </p>
+          <p>
+            <strong>Price: </strong>
+            {product.currency_symbol}
+            {product.amount}
+          </p>
+
+          <Gallery gallery = {product.gallery} />
+          <Attribute attributes = {product.attribute} />
+        </div>
+        
       </div>
     );
   }

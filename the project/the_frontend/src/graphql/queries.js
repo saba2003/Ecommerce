@@ -37,7 +37,7 @@ export const GET_CLOTHES_PRODUCTS = `
 
 export const GET_PRODUCT = (id) => `
   query{
-    Product(id: ${id}) {
+    Product(id: "${id}") {
       id
       name
       description
@@ -50,6 +50,7 @@ export const GET_PRODUCT = (id) => `
       attribute {
         id
         name
+        type
         attribute_items {
           displayValue
           value

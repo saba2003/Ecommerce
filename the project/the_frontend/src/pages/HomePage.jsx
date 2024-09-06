@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import ProductList from '../components/ProductList'
-import { CategoryContext } from '../CategoryContext';
+import { CategoryContext } from '../helpers/CategoryContext';
 
 class HomePage extends Component{
     render() {
