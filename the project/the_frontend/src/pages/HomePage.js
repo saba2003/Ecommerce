@@ -1,14 +1,20 @@
 import { Component } from 'react';
 import ProductList from '../components/ProductList'
-import { CategoryContext } from '../Layouts/RootLayout';
+import { CategoryContext } from '../CategoryContext';
 
 class HomePage extends Component{
     render() {
         return(
             <CategoryContext.Consumer>
-                {({ category }) => (
+                {({ 
+                    category,
+                    changeCategory 
+                }) => (
                     <div className="home-page">
-                        <ProductList category={category} />
+                        <ProductList 
+                            category={category} 
+                            changeCategory = {changeCategory}
+                        />
                     </div>
                 )}
             </CategoryContext.Consumer>

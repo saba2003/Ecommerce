@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { CategoryContext } from '../Layouts/RootLayout';
+import { CategoryContext } from '../CategoryContext';
+import { Link } from 'react-router-dom';
+import HomePage from '../pages/HomePage';
 
 class Header extends Component {
   render() {
@@ -8,9 +10,11 @@ class Header extends Component {
         {({ category, changeCategory }) => (
           <header>
             <h1>Category: {category}</h1>
-            <button onClick={() => changeCategory('tech')}>Tech</button>
-            <button onClick={() => changeCategory('clothes')}>Clothes</button>
-            <button onClick={() => changeCategory('all')}>All</button>
+            <Link to={HomePage}>
+              <button onClick={() => changeCategory('tech')}>Tech</button>
+              <button onClick={() => changeCategory('clothes')}>Clothes</button>
+              <button onClick={() => changeCategory('all')}>All</button>
+            </Link>
           </header>
         )}
       </CategoryContext.Consumer>

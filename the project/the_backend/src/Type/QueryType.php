@@ -8,8 +8,7 @@ use GraphQL\Type\Definition\Type;
 use App\Resolver\Category\AllCategoryResolver;
 use App\Resolver\Category\ClothesCategoryResolver;
 use App\Resolver\Category\TechCategoryResolver;
-use App\Resolver\Product\TechProductResolver;
-use App\Resolver\Product\ClothesProductResolver;
+use App\Resolver\Product\ProductResolver;
 use App\Type\CategoryType;
 
 class QueryType extends ObjectType {
@@ -31,23 +30,13 @@ class QueryType extends ObjectType {
                     'type' => Type::listOf($categoryType),
                     'resolve' => [new ClothesCategoryResolver(), 'resolve'],
                 ],
-                'techProduct' => [
+                'Product' => [
                     'type' => Type::listOf($productType),
                     'args' => [
                         'id' => ['type' => Type::nonNull(Type::id())],
                     ],
                     'resolve' => function ($rootValue, $args): array {
-                        $resolver = new TechProductResolver($args['id']);
-                        return $resolver->resolve();
-                    }
-                ],
-                'clothesProduct' => [
-                    'type' => Type::listOf($productType),
-                    'args' => [
-                        'id' => ['type' => Type::nonNull(Type::id())],
-                    ],
-                    'resolve' => function ($rootValue, $args): array {
-                        $resolver = new ClothesProductResolver($args['id']);
+                        $resolver = new ProductResolver($args['id']);
                         return $resolver->resolve();
                     }
                 ],

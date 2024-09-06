@@ -1,9 +1,7 @@
-import React, { createContext, Component } from 'react';
+import React, { Component } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
-
-// Create a context for the category
-export const CategoryContext = createContext();
+import { CategoryContext } from '../CategoryContext';
 
 class RootLayout extends Component {
   constructor(props) {
@@ -20,10 +18,12 @@ class RootLayout extends Component {
 
   render() {
     return (
-      <CategoryContext.Provider value={{
-        category: this.state.category,
-        changeCategory: this.changeCategory
-      }}>
+      <CategoryContext.Provider 
+        value={{
+          category: this.state.category,
+          changeCategory: this.changeCategory
+        }}
+      >
         <div className="root-layout">
           <Header />
           <div className="content">

@@ -4,25 +4,28 @@ import {
     GET_TECH_PRODUCTS, 
     GET_CLOTHES_PRODUCTS 
 } from "../graphql/queries";
-import { CategoryContext } from '../Layouts/RootLayout'; // Import the context
+import { CategoryContext } from '../CategoryContext'; // Import the context
+import { Link } from "react-router-dom";
 
 class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       products: [],  // Initialize with an empty array
+      category: null,
       loading: true, // Add loading state
-      category: this.context.category, // Initialize with context category
     };
   }
 
   // Fetch products when the component mounts
   async componentDidMount() {
-    this.changeProducts(this.state.category); // Fetch products based on initial category
+    const category = this.context.category; // Access category from context
+    this.setState({ category: category });
+    this.changeProducts(category); // Fetch products based on initial category
   }
 
   // Fetch products based on the provided query
-  fetchProducts = async (ProductsQuery) => {
+  fetchProducts = async (Query) => {
     try {
       const response = await fetch("http://localhost:8080/graphql", {
         method: "POST",
@@ -30,19 +33,19 @@ class ProductList extends Component {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          query: ProductsQuery,
+          query: Query,
         }),
       });
 
       const json = await response.json();
 
       if (json.data) {
-        if (ProductsQuery === GET_ALL_PRODUCTS) {
+        if (Query === GET_ALL_PRODUCTS) {
           this.setState({ products: json.data.allCategory, loading: false });
-        } else if (ProductsQuery === GET_TECH_PRODUCTS) {
-          this.setState({ products: json.data.techProducts, loading: false });
-        } else if (ProductsQuery === GET_CLOTHES_PRODUCTS) {
-          this.setState({ products: json.data.clothesProducts, loading: false });
+        } else if (Query === GET_TECH_PRODUCTS) {
+          this.setState({ products: json.data.techCategory, loading: false });
+        } else if (Query === GET_CLOTHES_PRODUCTS) {
+          this.setState({ products: json.data.clothesCategory, loading: false });
         }
       } else {
         console.error("Failed to fetch products");
@@ -69,11 +72,10 @@ class ProductList extends Component {
   // Update when the category changes in the context
   componentDidUpdate(prevProps, prevState) {
     const currentCategory = this.context.category; // Access category from context
-    if (prevState.category !== currentCategory) {
+    if (this.context.category !== prevState.category) {
       // Only update the products if the category has changed
-      this.setState({ category: currentCategory }, () => {
-        this.changeProducts(this.state.category); // Fetch products based on new category
-      });
+      this.changeProducts(currentCategory); // Fetch products based on new category
+      this.setState({ category: currentCategory });
     }
   }
 
@@ -92,9 +94,10 @@ class ProductList extends Component {
       <div className="products">
         {products.map((product) => (
           <div key={product.id}>
-            <h3>{product.name}</h3>
-            <img src={product.image_url} alt={product.name} />
-            <h3>{product.stock ? 'In Stock' : 'Out of Stock'}</h3>
+            <Link to={`/product/${product.id}`}>
+              <h3>{product.name}</h3>
+              <img src={product.image_url} alt={product.name} />
+            </Link>
             <h3>{product.symbol} {product.amount}</h3>
           </div>
         ))}
