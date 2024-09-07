@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Type;
+namespace App\Type\Product;
 
+use App\Type\Attribute\AttributeType;
 use App\Resolver\Attribute\AttributeResolver;
 use App\Resolver\Product\GalleryResolver;
 use GraphQL\Type\Definition\Type;

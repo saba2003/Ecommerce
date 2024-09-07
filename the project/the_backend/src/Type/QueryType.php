@@ -5,6 +5,7 @@ namespace App\Type;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
+use App\Type\Product\ProductType;
 use App\Resolver\Category\AllCategoryResolver;
 use App\Resolver\Category\ClothesCategoryResolver;
 use App\Resolver\Category\TechCategoryResolver;

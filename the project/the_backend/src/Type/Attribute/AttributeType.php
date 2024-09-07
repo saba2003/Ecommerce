@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Type;
+namespace App\Type\Attribute;
 
 use App\Resolver\Attribute\AttributeItemsResolver;
 use GraphQL\Type\Definition\Type;
