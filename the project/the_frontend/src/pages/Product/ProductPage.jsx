@@ -5,6 +5,7 @@ import { Component } from "react";
 import withRouter from "../../helpers/withRouter";
 import Attribute from "./Attribute";
 import Gallery from "./Gallery"
+import parse from 'html-react-parser';
 
 class ProductPage extends Component {
   constructor(props) {
@@ -63,7 +64,8 @@ class ProductPage extends Component {
         
         <div key={product.id}>
         <h1>{product.name}</h1>
-          <p>{product.description}</p>
+          {/* Using html-react-parser to parse and render the description safely */}
+          <p>{parse(product.description)}</p>
           <p>
             <strong>Brand: </strong>{product.brand}
           </p>
