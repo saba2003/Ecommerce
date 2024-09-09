@@ -21,6 +21,6 @@ class OrderItemsResolver
 
     public function resolve()
     {
-        $this->OrderItemsModel->insertOrderItems($this->name, $this->amount, $this->order_id);
+        return $this->OrderItemsModel->insertOrderItems($this->name, $this->amount, $this->order_id);
     }
 }

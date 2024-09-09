@@ -10,7 +10,18 @@
 // $objDB = new connectDB;
 // $conn = $objDB-> connect();
 
-// $stmt = $conn -> prepare($sql);
+// $getLastId = "
+//                 select MAX(item_id) as max_id from order_items
+//             ";
+
+
+// $statement = $conn->prepare($getLastId);
+// $statement->execute();
+// $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+// echo $result['max_id'];
+
+$newID = isset($result['max_id']) ? ((int) $result['max_id']) + 1 : 1;
 
 // $category = 'tech';
 // $stmt->bindParam(1, $category);

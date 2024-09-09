@@ -15,10 +15,7 @@ class OrderInputType extends InputObjectType
             'fields' => [
                 'item_count' => Type::nonNull(Type::int()),
                 'total' => Type::nonNull(Type::string()),
-                'item_name' => Type::nonNull(Type::string()),
-                'item_amount' => Type::nonNull(Type::int()),
-                'item_attribute_name' => Type::nonNull(Type::string()),
-                'item_attribute_value' => Type::nonNull(Type::string()),
+                'order_items' => Type::listOf(new OrderItemsInputType()),
             ],
         ]);
     }

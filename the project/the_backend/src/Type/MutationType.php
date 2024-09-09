@@ -24,27 +24,38 @@ class MutationType extends ObjectType {
                     'resolve' => function ($rootValue, $args) {
                         $item_count = $args['input']['item_count'];
                         $total = $args['input']['total'];
-                        $item_name = $args['input']['item_name'];
-                        $item_amount = $args['input']['item_amount'];
-                        $item_attribute_name = $args['input']['item_attribute_name'];
-                        $item_attribute_value = $args['input']['item_attribute_value'];
+                        $order_items = $args['input']['order_items'];
 
+                        // Insert the main order using OrderResolver
                         $orderResolver = new OrderResolver($item_count, $total);
                         $order_id = $orderResolver->resolve();
-                        // $orderItemsResolver = new OrderItemsResolver($item_name, $item_amount, $order_id);
-                        // $item_id = $orderItemsResolver->resolve();
-                        // $orderItemAttributesResolver = new OrderItemAttributesResolver($item_attribute_name, $item_attribute_value, $item_id);
-                        // $orderItemAttributesResolver->resolve();
+
+                        // Loop through each order item and insert
+                        foreach ($order_items as $item) {
+                            $item_name = $item['item_name'];
+                            $item_amount = $item['item_amount'];
+
+                            // Insert the order item using OrderItemsResolver
+                            $orderItemsResolver = new OrderItemsResolver($item_name, $item_amount, $order_id);
+                            $item_id = $orderItemsResolver->resolve();
+
+                            // If there are attributes, insert them as well
+                            if (isset($item['attributes'])) {
+                                foreach ($item['attributes'] as $attribute) {
+                                    $item_attribute_name = $attribute['item_attribute_name'];
+                                    $item_attribute_value = $attribute['item_attribute_value'];
+
+                                    // Insert each attribute using OrderItemAttributesResolver
+                                    $orderItemAttributesResolver = new OrderItemAttributesResolver($item_attribute_name, $item_attribute_value, $item_id);
+                                    $orderItemAttributesResolver->resolve();
+                                }
+                            }
+                        }
 
                         // Return the newly inserted product
                         return [
-                            'id' => $order_id,
                             'item_count' => $item_count,
                             'total' => $total,
-                            'item_name' => $item_name,
-                            'item_amount' => $item_amount,
-                            'item_attribute_name' => $item_attribute_name,
-                            'item_attribute_value' => $item_attribute_value,
                         ];
                     }
                 ],
