@@ -1,16 +1,27 @@
 <?php
 
 	namespace App\Model;
+
 	use PDO;
 
+	use Dotenv\Dotenv;
+
 	class connectDB {
-		private $server = '127.0.0.1';
-		private $dbname = 'productsdb';
-		private $user = 'root';
-		private $pass = 'The3FatesOfOlympus!';
+		private $server;
+		private $dbname;
+		private $user;
+		private $pass;
 
 		protected function connect() {
 			try {
+				$dotenv = Dotenv::createImmutable(__DIR__, null, true);
+				$dotenv->load();
+
+				$this->server = $_ENV['SERVER'] ?: getenv('SERVER');
+				$this->dbname = $_ENV['DBNAME'] ?: getenv('DBNAME');
+				$this->user = $_ENV['USER'] ?: getenv('USER');
+				$this->pass = $_ENV['PASS'] ?: getenv('PASS');
+
 				$conn = new PDO('mysql:host=' .$this->server .';dbname=' . $this->dbname, $this->user, $this->pass);
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				return $conn;
