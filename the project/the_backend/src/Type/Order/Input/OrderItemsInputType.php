@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Type\Order;
+namespace App\Type\Order\Input;
 
 
 use GraphQL\Type\Definition\Type;

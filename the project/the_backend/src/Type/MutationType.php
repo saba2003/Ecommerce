@@ -2,7 +2,7 @@
 
 namespace App\Type;
 
-use App\Type\Order\OrderInputType;
+use App\Type\Order\Input\OrderInputType;
 use App\Resolver\Order\OrderItemAttributesResolver;
 use App\Resolver\Order\OrderItemsResolver;
 use App\Resolver\Order\OrderResolver;
