@@ -15,10 +15,9 @@ import NotFound from './pages/NotFound';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}> 
-      <Route 
-        index 
-        element={<HomePage />}
-      />
+      <Route index element={<HomePage />}/>
+      <Route path="/tech" element={<HomePage />}/>
+      <Route path="/clothes" element={<HomePage />}/>
 
       <Route 
         path="/product/:id" 

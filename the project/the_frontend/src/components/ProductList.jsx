@@ -93,13 +93,15 @@ class ProductList extends Component {
     return (
       <div className="products">
         {products.map((product) => (
-          <div key={product.id}>
-            <Link to={`/product/${product.id}`}>
+          <Link to={`/product/${product.id}`} key={product.id} className="product-card">
+              <div className="image-box">
+                <img src={product.image_url} alt={product.name} />
+              </div>
+            <div className="info">
               <h3>{product.name}</h3>
-              <img src={product.image_url} alt={product.name} />
-            </Link>
-            <h3>{product.symbol} {product.amount}</h3>
-          </div>
+              <h3 className="price">{product.symbol}{product.amount}.00</h3>
+            </div>
+          </Link>
         ))}
       </div>
     );

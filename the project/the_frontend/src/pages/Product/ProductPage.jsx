@@ -60,23 +60,26 @@ class ProductPage extends Component {
     }
     
     return (
-      <div className="product">
+      <div key={product.id} className="product">
         
-        <div key={product.id}>
-        <h1>{product.name}</h1>
-          {/* Using html-react-parser to parse and render the description safely */}
-          <p>{parse(product.description)}</p>
-          <p>
-            <strong>Brand: </strong>{product.brand}
-          </p>
-          <p>
+        <Gallery gallery = {product.gallery} />
+
+        <div className="info">
+
+          <h1>{product.name}</h1>
+          <p className="brand"> <strong>Brand: </strong>{product.brand} </p>
+          
+          <Attribute attributes = {product.attribute} />
+
+          <div className="price">
             <strong>Price: </strong>
             {product.currency_symbol}
             {product.amount}
-          </p>
+          </div>
 
-          <Gallery gallery = {product.gallery} />
-          <Attribute attributes = {product.attribute} />
+          {/* Using html-react-parser to parse and render the description safely */}
+          {parse(product.description)}
+
         </div>
         
       </div>

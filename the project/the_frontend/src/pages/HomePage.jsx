@@ -11,6 +11,7 @@ class HomePage extends Component{
                     changeCategory 
                 }) => (
                     <div className="home-page">
+                        <h1>{category.toUpperCase()}</h1>
                         <ProductList 
                             category={category} 
                             changeCategory = {changeCategory}
