@@ -65,20 +65,33 @@ class ProductPage extends Component {
         <Gallery gallery = {product.gallery} />
 
         <div className="info">
-
-          <h1>{product.name}</h1>
-          <p className="brand"> <strong>Brand: </strong>{product.brand} </p>
+          <div>
+            <h1>{product.name}</h1>
+            <p> <strong>BRAND: </strong>{product.brand} </p>
+          </div>
           
           <Attribute attributes = {product.attribute} />
 
+
           <div className="price">
-            <strong>Price: </strong>
-            {product.currency_symbol}
-            {product.amount}
+            <strong>PRICE: </strong> <br />
+            <b>
+              {product.currency_symbol}
+              {product.amount}
+              .00
+            </b>
+            
           </div>
 
+          <button
+            className="add-to-cart-button"
+            
+          >ADD TO CART</button>
+
           {/* Using html-react-parser to parse and render the description safely */}
-          {parse(product.description)}
+          <div className="desc">
+            {parse(product.description)}
+          </div>
 
         </div>
         
