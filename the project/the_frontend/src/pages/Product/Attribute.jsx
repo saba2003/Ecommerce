@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
+import { AttributesContext } from '../../helpers/AttributesContext';
 
 class Attribute extends Component {
     constructor(props) {
         super(props);
         this.state = {
             attributes: props.attributes,
-            activeColor: null,
-            activeText: new Map([])
+            activeAttribute: new Map([]),
+            allAttributesSelected: false
         };
     }
 
-    setActiveColor = (color) => {
-        this.setState({ activeColor: color });
+    setActiveAttribute = (index, text) => {
+        const arr = this.state.activeAttribute
+        arr.set(index, text)
+        this.setState({ activeAttribute: arr });
     };
 
-    setActiveText = (index, text) => {
-        const arr = this.state.activeText
-        arr.set(index, text)
-        this.setState({ activeText: arr });
-    };
+    componentDidUpdate() {
+        if (this.state.attributes.length <= this.state.activeAttribute.size
+            && this.state.allAttributesSelected === false
+        ) {
+            this.context.changeButtonState(false);
+            this.setState({ allAttributesSelected: true })
+            
+        }
+    }
 
     render() {
-        const { attributes, activeColor } = this.state;
+        const { attributes, activeAttribute } = this.state;
 
         return (
             <div className="attributes">
@@ -35,8 +42,8 @@ class Attribute extends Component {
                                         {attribute.attribute_items.map((item, index) => (
                                             <div 
                                                 key={index}
-                                                className={`text-item ${this.state.activeText.get(attribute.id) === item.value ? 'text-active' : ''}`}
-                                                onClick={() => this.setActiveText(attribute.id, item.value)}
+                                                className={`text-item ${activeAttribute.get(attribute.id) === item.value ? 'text-active' : ''}`}
+                                                onClick={() => this.setActiveAttribute(attribute.id, item.value)}
                                             >{item.value}</div>
                                         ))}
                                     </div>
@@ -52,8 +59,8 @@ class Attribute extends Component {
                                                 return (
                                                     <div 
                                                         key={index}
-                                                        className={`color-item ${activeColor === item.value ? 'color-active' : ''}`} 
-                                                        onClick={() => this.setActiveColor(item.value)}   
+                                                        className={`color-item ${activeAttribute.get(attribute.id) === item.value ? 'color-active' : ''}`} 
+                                                        onClick={() => this.setActiveAttribute(attribute.id, item.value)}   
                                                     >
                                                         <div style={{ backgroundColor: item.value }}></div>
                                                     </div>
@@ -62,8 +69,8 @@ class Attribute extends Component {
                                                 return (
                                                     <div 
                                                         key={index}
-                                                        className={`text-item ${this.state.activeText.get(attribute.id) === item.value ? 'text-active' : ''}`}
-                                                        onClick={() => this.setActiveText(attribute.id, item.value)}
+                                                        className={`text-item ${activeAttribute.get(attribute.id) === item.value ? 'text-active' : ''}`}
+                                                        onClick={() => this.setActiveAttribute(attribute.id, item.value)}
                                                     >{item.value}</div>
                                                 )
                                             }
@@ -80,5 +87,9 @@ class Attribute extends Component {
         );
     }
 }
+
+
+// Consume the category context
+Attribute.contextType = AttributesContext;
 
 export default Attribute;

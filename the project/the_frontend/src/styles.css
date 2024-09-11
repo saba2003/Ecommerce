@@ -137,6 +137,27 @@ header{
 .product-card .price{
     color: black;
 }
+
+.product-card h2{
+    display: none;
+}
+
+.out-of-stock{
+    position: relative;
+}
+
+.out-of-stock .image-box img{
+    filter: grayscale(200%);
+}
+
+.out-of-stock h2{
+    display: block;
+    color: grey;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 /* ------------------- PRODUCT LISTING END ------------------- */
 
 /* ------------------- PRODUCT DETAILS PAGE START ------------------- */
@@ -193,9 +214,13 @@ header{
 
 .main-image{
     max-width: 600px;
+    width: 600px;
     height: 500px;
     align-content: center;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .main-image img{
@@ -332,6 +357,15 @@ header{
 
 .add-to-cart-button:hover{
     background: #35874b;
+}
+
+.button-loading{
+    background-color: lightgray;
+}
+
+.button-loading:hover{
+    cursor: default;
+    background-color: lightgray;
 }
 
 .info .desc{

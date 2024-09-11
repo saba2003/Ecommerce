@@ -44,6 +44,7 @@ export const GET_PRODUCT = (id) => `
       brand
       currency_symbol
       amount
+      stock
       gallery {
         url
       }

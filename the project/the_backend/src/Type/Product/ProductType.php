@@ -33,6 +33,9 @@ class ProductType extends ObjectType
                 'amount' => [
                     'type' => Type::nonNull(Type::int()),
                 ],
+                'stock' => [
+                    'type' => Type::nonNull(Type::boolean()),
+                ],
                 'gallery' => [
                     'type' => Type::listOf(new GalleryType()),
                     'resolve' => function ($product, $args): array {

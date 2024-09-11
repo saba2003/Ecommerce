@@ -14,7 +14,8 @@ class Product extends connectDB {
                 p.description as description,
                 p.brand as brand,
                 pr.currency_symbol as currency_symbol,
-                pr.amount as amount
+                pr.amount as amount,
+                p.inStock as stock
             FROM products p 
             LEFT JOIN prices pr ON p.id = pr.product_id
             WHERE p.id = :id

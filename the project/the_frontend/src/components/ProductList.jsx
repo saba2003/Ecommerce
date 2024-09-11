@@ -93,15 +93,16 @@ class ProductList extends Component {
     return (
       <div className="products">
         {products.map((product) => (
-          <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-              <div className="image-box">
-                <img src={product.image_url} alt={product.name} />
+              <Link to={`/product/${product.id}`} key={product.id} className={`product-card ${product.stock === false ? 'out-of-stock' : ''}`}>
+                <div className="image-box">
+                  <img src={product.image_url} alt={product.name} />
+                </div>
+              <div className="info">
+                <h3>{product.name}</h3>
+                <h3 className="price">{product.symbol}{product.amount}.00</h3>
               </div>
-            <div className="info">
-              <h3>{product.name}</h3>
-              <h3 className="price">{product.symbol}{product.amount}.00</h3>
-            </div>
-          </Link>
+              <h2>OUT OF STOCK</h2>
+            </Link>
         ))}
       </div>
     );
