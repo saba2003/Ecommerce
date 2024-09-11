@@ -79,6 +79,18 @@ header{
     background-repeat: no-repeat;
     background-position: center;
 }
+
+
+/* ------------------- CART START ------------------- */
+.cart-box .cart{
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    width: 273px;
+    height: 500px;
+}
+/* ------------------- CART END ------------------- */
+
 /* ------------------- NAVBAR END ------------------- */
 
 /* ------------------- PRODUCT LISTING START ------------------- */
@@ -115,6 +127,7 @@ header{
     padding-bottom: 25px;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
+    position: relative;
 }
 
 .product-card:hover{
@@ -130,6 +143,10 @@ header{
     height: inherit;
 }
 
+.product-card .info{
+    margin-top: 20px;
+}
+
 .product-card h3{
     color: rgba(0, 0, 0, 0.551);
 }
@@ -140,6 +157,28 @@ header{
 
 .product-card h2{
     display: none;
+}
+
+.product-card:hover .cart-image{
+    position: absolute;
+    right: 30px;
+    bottom: 40px;
+    background-color: #4EC96E;
+    background-image: url('../public/pictures/cart.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: .2s ease-in-out;
+}
+
+.product-card .cart-image:hover{
+    cursor: pointer;
+    background-color: #4ec96fa9;
 }
 
 .out-of-stock{
@@ -158,6 +197,11 @@ header{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.out-of-stock .cart-image{
+    display: none;
+}
+
 /* ------------------- PRODUCT LISTING END ------------------- */
 
 /* ------------------- PRODUCT DETAILS PAGE START ------------------- */

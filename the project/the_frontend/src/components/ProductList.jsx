@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { 
+    GET_PRODUCT,
     GET_ALL_PRODUCTS, 
     GET_TECH_PRODUCTS, 
     GET_CLOTHES_PRODUCTS 
 } from "../graphql/queries";
 import { CategoryContext } from '../helpers/CategoryContext'; // Import the context
 import { Link } from "react-router-dom";
+
+import { connect } from 'react-redux';
+import { addToCart } from '../redux/actions/cartActions';
 
 class ProductList extends Component {
   constructor(props) {
@@ -79,6 +83,49 @@ class ProductList extends Component {
     }
   }
 
+  async addToCart(product_id) {
+    try {
+      const response = await fetch("http://localhost:8080/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: GET_PRODUCT(product_id),
+        }),
+      });
+
+      const json = await response.json();
+
+      if (json.data) {
+        const product = json.data.Product[0]
+        const selectedAttributes = new Map([])
+        const getSelectedItems = (product) => {
+          product.attribute.forEach(attribute => {
+            selectedAttributes.set(attribute.id, attribute.attribute_items[0].value)
+          });
+        }
+        getSelectedItems(product)
+
+        const data = {
+          id: product.id,
+          name: product.name,
+          image_url: product.gallery[0].url,
+          attributes: product.attribute,
+          selectedAttributes: selectedAttributes,
+          currency_symbol: product.currency_symbol,
+          amount: product.amount,
+        };
+        this.props.addToCart(data);
+
+      } else {
+        console.error("Failed to fetch product");
+      }
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    }
+  }
+
   render() {
     const { products, loading } = this.state;
 
@@ -93,16 +140,25 @@ class ProductList extends Component {
     return (
       <div className="products">
         {products.map((product) => (
-              <Link to={`/product/${product.id}`} key={product.id} className={`product-card ${product.stock === false ? 'out-of-stock' : ''}`}>
-                <div className="image-box">
-                  <img src={product.image_url} alt={product.name} />
-                </div>
+              <div 
+                key={product.id} 
+                className={`product-card ${product.stock === false ? 'out-of-stock' : ''}`}>
+                
+              <Link to={`/product/${product.id}`}  className="image-box">
+                <img src={product.image_url} alt={product.name} />
+              </Link>
+
               <div className="info">
+
                 <h3>{product.name}</h3>
                 <h3 className="price">{product.symbol}{product.amount}.00</h3>
+
               </div>
+              <div
+                onClick={() => this.addToCart(product.id)}
+                className="cart-image"></div>
               <h2>OUT OF STOCK</h2>
-            </Link>
+            </div>
         ))}
       </div>
     );
@@ -112,4 +168,13 @@ class ProductList extends Component {
 // Consume the category context
 ProductList.contextType = CategoryContext;
 
-export default ProductList;
+// Map Redux state to component props
+const mapStateToProps = (state) => ({
+  cart: state.cartState.cart,
+});
+
+const mapDispatchToProps = {
+  addToCart,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

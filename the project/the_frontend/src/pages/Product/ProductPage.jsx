@@ -8,11 +8,15 @@ import Gallery from "./Gallery"
 import parse from 'html-react-parser';
 import { AttributesContext } from '../../helpers/AttributesContext'
 
+import { connect } from 'react-redux';
+import { addToCart } from '../../redux/actions/cartActions';
+
 class ProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: {},
+      selectedAttributes: new Map([]),
       loading: true,
       button_loading: false,
       button_disabled: true
@@ -47,13 +51,31 @@ class ProductPage extends Component {
 
   addToCart() {
     this.setState({ button_loading: true })
+
+    const product = this.state.product[0]
+
+    const data = {
+      id: product.id,
+      name: product.name,
+      image_url: product.gallery[0].url,
+      attributes: product.attribute,
+      selectedAttributes: this.state.selectedAttributes,
+      currency_symbol: product.currency_symbol,
+      amount: product.amount,
+    };
+    this.props.addToCart(data);
+
     setTimeout(() => {
       this.setState({ button_loading: false })
-    }, "1500");
+    }, "2000");
   }
 
   changeButtonState = (newButtonState) => {
     this.setState({ button_disabled: newButtonState });
+  };
+
+  changeAttributes = (newMap) => {
+    this.setState({ selectedAttributes: newMap });
   };
 
   async componentDidMount() {
@@ -78,7 +100,9 @@ class ProductPage extends Component {
     return (
       <AttributesContext.Provider 
         value={{
-          changeButtonState: this.changeButtonState
+          changeButtonState: this.changeButtonState,
+          selectedAttributes: this.state.selectedAttributes,
+          changeAttributes: this.changeAttributes
         }}
       >
         <div key={product.id} className="product">
@@ -105,9 +129,9 @@ class ProductPage extends Component {
             </div>
 
             <button
-              className={`add-to-cart-button ${(button_loading === true) || (button_disabled === true) ? 'button-loading' : ''}`}
+              className={`add-to-cart-button ${(button_loading === true) || (button_disabled === true) || (!product.stock) ? 'button-loading' : ''}`}
               disabled={!product.stock || button_loading}
-              onClick={() => this.addToCart(product.product_id)}
+              onClick={() => this.addToCart()}
             >{button_loading === true ? 'ADDING...' : 'ADD TO CART'}</button>
 
             {/* Using html-react-parser to parse and render the description safely */}
@@ -124,4 +148,13 @@ class ProductPage extends Component {
   
 }
 
-export default withRouter(ProductPage);
+
+const mapStateToProps = (state) => ({
+  cart: state.cartState.cart,
+});
+
+const mapDispatchToProps = {
+  addToCart
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProductPage));

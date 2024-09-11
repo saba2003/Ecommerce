@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { CategoryContext } from '../helpers/CategoryContext';
 import { NavLink, Link } from 'react-router-dom';
 
+import Cart from './Cart'
+
 class Header extends Component {
   render() {
     return (
@@ -33,6 +35,7 @@ class Header extends Component {
             </Link>
             <div className='cart-box' >
               <div className='logo'></div>
+              <Cart />
             </div>
           </header>
         )}

@@ -17,13 +17,30 @@ class Attribute extends Component {
         this.setState({ activeAttribute: arr });
     };
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
         if (this.state.attributes.length <= this.state.activeAttribute.size
             && this.state.allAttributesSelected === false
         ) {
             this.context.changeButtonState(false);
             this.setState({ allAttributesSelected: true })
-            
+        }
+
+        function mapsAreEqual(map1, map2) {
+            if (map1.size !== map2.size) {
+              return false;
+            }
+    
+            for (let [key, value] of map1) {
+              
+              if (!map2.has(key) || map2.get(key) !== value) {
+                return false;
+              }
+            }
+            return true;
+          }
+
+        if(!mapsAreEqual(this.context.selectedAttributes, this.state.activeAttribute)){
+            this.context.changeAttributes(this.state.activeAttribute)
         }
     }
 
