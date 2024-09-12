@@ -36,7 +36,7 @@ const cartReducer = (state = initialState, action) => {
           return {
             ...state,
             cart: state.cart.map(p =>
-              p.id === action.payload.id && mapsAreEqual(p.selectedAttributes, action.payload.selectedAttributes)
+              mapsAreEqual(p.selectedAttributes, action.payload.selectedAttributes)
                 ? { ...p, quantity: p.quantity + 1 }
                 : p
             )

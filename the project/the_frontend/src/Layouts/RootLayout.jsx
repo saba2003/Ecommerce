@@ -8,6 +8,7 @@ class RootLayout extends Component {
     super(props);
     this.state = {
       category: 'all', // initial category
+      filter: false
     };
   }
 
@@ -16,17 +17,25 @@ class RootLayout extends Component {
     this.setState({ category: newCategory });
   };
 
+  toggleFilter = () => {
+    this.setState({ filter: !this.state.filter });
+  };
+
   render() {
     return (
       <CategoryContext.Provider 
         value={{
           category: this.state.category,
-          changeCategory: this.changeCategory
+          filter: this.state.filter,
+          changeCategory: this.changeCategory,
+          toggleFilter: this.toggleFilter
         }}
       >
         <div className="root-layout">
           <Header />
           <div className="content">
+            {/* {this.state.filter === true ? <div className='filter'></div> : ''} */}
+            
             <Outlet />
           </div>
         </div>
