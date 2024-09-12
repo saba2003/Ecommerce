@@ -53,13 +53,18 @@ class Attribute extends Component {
                     attributes.map((attribute) => {
                         if (attribute.type === "text") {
                             return (
-                                <div key={attribute.id}>
+                                <div 
+                                    data-testid={`product-attribute-${attribute.name.split(' ').join('-')}-${attribute.name.split(' ').join('-')}`}
+                                    key={attribute.id}
+                                    >
                                     <h4>{attribute.name.toUpperCase()}:</h4>
                                     <div className='items text-items'>
                                         {attribute.attribute_items.map((item, index) => (
                                             <div 
                                                 key={index}
                                                 className={`text-item ${activeAttribute.get(attribute.id) === item.value ? 'text-active' : ''}`}
+                                                
+                                                
                                                 onClick={() => this.setActiveAttribute(attribute.id, item.value)}
                                             >{item.value}</div>
                                         ))}
@@ -68,7 +73,10 @@ class Attribute extends Component {
                             );
                         } else {
                             return (
-                                <div key={attribute.id}>
+                                <div 
+                                    key={attribute.id}
+                                    data-testid={`product-attribute-${attribute.name.split(' ').join('-')}-${attribute.name.split(' ').join('-')}`}
+                                    >
                                     <h4>{attribute.name.toUpperCase()}:</h4>
                                     <div className='items swatch-items'>
                                         {attribute.attribute_items.map((item, index) => {

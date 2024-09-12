@@ -33,18 +33,21 @@ class Header extends Component {
                 <NavLink 
                   to={"/"} 
                   onClick={() => changeCategory('all')}
+                  data-testid={`${({ isActive }) => isActive ? "active-category-link" : "category-link" }`}
                   className={({ isActive }) => isActive ? "link-active" : "" }
                 >ALL
                 </NavLink>
                 <NavLink 
                   to={"/tech"} 
                   onClick={() => changeCategory('tech')}
+                  data-testid={`${({ isActive }) => isActive ? "active-category-link" : "category-link" }`}
                   className={({ isActive }) => isActive ? "link-active" : "" }
                   >TECH
                 </NavLink>
                 <NavLink 
                   to={"/clothes"} 
                   onClick={() => changeCategory('clothes')}
+                  data-testid={`${({ isActive }) => isActive ? "active-category-link" : "category-link" }`}
                   className={({ isActive }) => isActive ? "link-active" : "" }
                   >CLOTHES
                 </NavLink>
@@ -54,6 +57,7 @@ class Header extends Component {
               </Link>
               <div className='cart-box' >
                 <div className='logo'
+                data-testid='cart-btn'
                 onClick={() => toggleFilter()}>
                   <div className='item-amount'>
                     {this.state.amount}

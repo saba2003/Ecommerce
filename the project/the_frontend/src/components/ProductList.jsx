@@ -142,7 +142,10 @@ class ProductList extends Component {
         {products.map((product) => (
               <div 
                 key={product.id} 
-                className={`product-card ${product.stock === false ? 'out-of-stock' : ''}`}>
+                className={`product-card ${product.stock === false ? 'out-of-stock' : ''}`}
+                data-testid={`product-${product.name.split(' ').join('-')}`}
+                
+              >
                 
               <Link to={`/product/${product.id}`}  className="image-box">
                 <img src={product.image_url} alt={product.name} />

@@ -132,10 +132,11 @@ class ProductPage extends Component {
               className={`add-to-cart-button ${(button_loading === true) || (button_disabled === true) || (!product.stock) ? 'button-loading' : ''}`}
               disabled={!product.stock || button_loading}
               onClick={() => this.addToCart()}
+              data-testid='add-to-cart'
             >{button_loading === true ? 'ADDING...' : 'ADD TO CART'}</button>
 
             {/* Using html-react-parser to parse and render the description safely */}
-            <div className="desc">
+            <div data-testid='product-description' className="desc">
               {parse(product.description)}
             </div>
 

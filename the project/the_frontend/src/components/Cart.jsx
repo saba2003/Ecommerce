@@ -117,11 +117,13 @@ class Cart extends Component {
                                     product.attributes.map((attribute) => {
                                         if (attribute.type === "text") {
                                             return (
-                                                <div key={attribute.id}>
+                                                <div data-testid={`cart-item-attribute-${attribute.name.split(' ').join('-')}`} key={attribute.id}>
                                                     <h4>{attribute.name.toUpperCase()}:</h4>
                                                     <div className='items text-items'>
                                                         {attribute.attribute_items.map((item, index) => (
                                                             <div 
+                                                                data-testid=
+                                                                {`${product.selectedAttributes.get(attribute.id) === item.value ? `${`cart-item-attribute-${attribute.name.split(' ').join('-')}-${attribute.name.split(' ').join('-')}-selected`}` : `${`cart-item-attribute-${attribute.name.split(' ').join('-')}-${attribute.name.split(' ').join('-')}`}` }`}
                                                                 key={index}
                                                                 className={`text-item ${product.selectedAttributes.get(attribute.id) === item.value ? 'text-active' : ''}`}
                                                             >{item.value}</div>
@@ -131,13 +133,15 @@ class Cart extends Component {
                                             );
                                         } else {
                                             return (
-                                                <div key={attribute.id}>
+                                                <div data-testid={`cart-item-attribute-${attribute.name.split(' ').join('-')}`} key={attribute.id}>
                                                     <h4>{attribute.name.toUpperCase()}:</h4>
                                                     <div className='items swatch-items'>
                                                         {attribute.attribute_items.map((item, index) => {
                                                             if(attribute.name === "Color"){
                                                                 return (
                                                                     <div 
+                                                                        data-testid=
+                                                                        {`${product.selectedAttributes.get(attribute.id) === item.value ? `${`cart-item-attribute-${attribute.name.split(' ').join('-')}-${attribute.name.split(' ').join('-')}-selected`}` : `${`cart-item-attribute-${attribute.name.split(' ').join('-')}-${attribute.name.split(' ').join('-')}`}` }`}
                                                                         key={index}
                                                                         className={`color-item ${product.selectedAttributes.get(attribute.id) === item.value ? 'color-active' : ''}`} 
                                                                     >
@@ -165,9 +169,15 @@ class Cart extends Component {
                         </div>
                         <div className='quantity'>
                             
-                            <button className='btn' onClick={() => this.handleIncreaseQuantity(product.id)}>+</button>
-                                <p>{product.quantity}</p>
-                            <button className='btn' onClick={() => this.handleDecreaseQuantity(product.id)}>-</button>
+                            <button className='btn' 
+                                onClick={() => this.handleIncreaseQuantity(product.id)}
+                                data-testid='cart-item-amount-increase'
+                            >+</button>
+                                <p data-testid='cart-item-amount'>{product.quantity}</p>
+                            <button className='btn' 
+                                onClick={() => this.handleDecreaseQuantity(product.id)}
+                                data-testid='cart-item-amount-decrease'
+                            >-</button>
 
                         </div>
                         <div className='image-box'>
@@ -179,7 +189,7 @@ class Cart extends Component {
 
             <div className='total'>
                 <p>Total</p> 
-                <div className='amount'>
+                <div className='amount' data-testid='cart-total'>
                     ${total}
                 </div>
             </div>
