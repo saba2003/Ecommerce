@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { backend_url } from "../graphql/queries";
 import { 
     GET_PRODUCT,
     GET_ALL_PRODUCTS, 
@@ -31,7 +32,7 @@ class ProductList extends Component {
   // Fetch products based on the provided query
   fetchProducts = async (Query) => {
     try {
-      const response = await fetch("http://localhost:8080/graphql", {
+      const response = await fetch(backend_url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

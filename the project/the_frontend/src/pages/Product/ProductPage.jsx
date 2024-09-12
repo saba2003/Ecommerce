@@ -3,6 +3,7 @@ import {
 } from "../../graphql/queries";
 import { Component } from "react";
 import withRouter from "../../helpers/withRouter";
+import { backend_url } from "../../graphql/queries";
 import Attribute from "./Attribute";
 import Gallery from "./Gallery"
 import parse from 'html-react-parser';
@@ -25,7 +26,7 @@ class ProductPage extends Component {
 
   fetchProduct = async (product_id) => {
     try {
-      const response = await fetch("http://localhost:8080/graphql", {
+      const response = await fetch(backend_url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

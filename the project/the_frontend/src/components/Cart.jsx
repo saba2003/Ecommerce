@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { backend_url } from '../graphql/queries';
 import { HeaderContext } from '../helpers/HeaderContext';
 import { 
     decreaseQuantity,
@@ -38,7 +39,7 @@ class Cart extends Component {
     addOrder = async () => {
         const { cart } = this.props;
         try {
-          await fetch("http://localhost:8080/graphql", {
+          await fetch(backend_url, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
