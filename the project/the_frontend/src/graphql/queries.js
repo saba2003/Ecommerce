@@ -1,4 +1,4 @@
-export const backend_url = "http://php-backend.infinityfreeapp.com/graphql"
+export const backend_url = "https://green-dragonfly-487865.hostingersite.com/"
 
 export const GET_ALL_PRODUCTS = `
   query {
