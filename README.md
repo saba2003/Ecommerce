@@ -10,8 +10,9 @@ The **Ecommerce** project is a full-stack web application designed to provide a 
 - **Product Search & Filtering**: Enables users to search for products and apply filters based on categories, price ranges, etc.
 - **Product Reviews & Ratings**: Allows customers to leave feedback and rate products.
 
-- ![ezgif-464aeb6de08430](https://github.com/user-attachments/assets/6f06770e-5f52-4f82-9673-2b942966b94e)
-- ![ezgif-487a8c3c06d6a0](https://github.com/user-attachments/assets/62fb6f41-8855-4fc0-b5c8-a5d87671bcff)
+- ![ezgif-464aeb6de08430](https://github.com/user-attachments/assets/8ec111b5-bb15-4d96-a60d-c0f3da27727b)
+- ![ezgif-487a8c3c06d6a0](https://github.com/user-attachments/assets/45b1f8d9-fac7-4045-8d73-f50ea075cbe4)
+
 
 ### Shopping Cart & Checkout
 
